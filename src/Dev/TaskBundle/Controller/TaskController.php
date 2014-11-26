@@ -11,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Dev\TaskBundle\Entity\Task;
 use Dev\TaskBundle\Form\TaskType;
 use Dev\TaskBundle\Form\TaskCompleteType;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
 
 /**
  * Task controller.
@@ -247,34 +248,54 @@ class TaskController extends Controller
             throw $this->createNotFoundException('Unable to find Task entity.');
         }
 
-        //$editForm = $this->createEditForm($entity);
-        $editForm = $this->createForm(new TaskCompleteType(), $entity);
-        $editForm->handleRequest($request);
 
-        if ($editForm->isValid()) {
-            //$em->persist();
-            $em->persist($entity);
-            $em->flush();
-
-            if ($request->isXmlHttpRequest()) {
-                $json = json_encode(array(
-                    'id' => $entity->getId(),
-                    'complete' => $entity->getComplete(),
-                ));
-
-                $response = new Response($json);
-                $response->headers->set('Content-Type', 'application/json');
-                return $response;
-            }
-
-            return $this->redirect($this->generateUrl('task'));
-        }
-
+        $entityDataAsJson = $this->encodeEntityDataToJson($entity);
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'taskDataAsJson' => $entityDataAsJson
         );
+        
+        
+        ////$editForm = $this->createEditForm($entity);
+        // $editForm = $this->createForm(new TaskCompleteType(), $entity);
+        // $editForm->handleRequest($request);
+
+        // if ($editForm->isValid()) {
+        //     //$em->persist();
+        //     $em->persist($entity);
+        //     $em->flush();
+
+        //     if ($request->isXmlHttpRequest()) {
+        //         $json = json_encode(array(
+        //             'id' => $entity->getId(),
+        //             'complete' => $entity->getComplete(),
+        //         ));
+
+        //         $response = new Response($json);
+        //         $response->headers->set('Content-Type', 'application/json');
+                
+        //         return $response;
+        //     }
+
+        //     return $this->redirect($this->generateUrl('task'));
+        // }
+
+        // return array(
+        //     'entity'      => $entity,
+        //     'edit_form'   => $editForm->createView(),
+        // );
     }
+    
+    private function encodeEntityDataToJson(Task $task) 
+    {
+        $taskData = array(
+            'id' => $task->getId(),
+            'complete' => $task->getComplete()
+        );
+        $jsonEncoder = new JsonEncoder();
+        return $jsonEncoder->encode($taskData, $format = 'json');
+    }
+    
+    
     /**
      * Deletes a Task entity.
      *
