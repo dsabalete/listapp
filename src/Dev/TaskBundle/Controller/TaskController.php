@@ -315,7 +315,8 @@ class TaskController extends Controller
         }
 
         $editForm = $this->createEditCompleteForm($entity);
-        $editForm->handleRequest($request);
+        //$editForm->handleRequest($request);
+        $editForm->bind($request);
 
         if ($editForm->isValid()) {
             $em->persist($entity);
