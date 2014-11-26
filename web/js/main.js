@@ -6,7 +6,7 @@ $(function(){
 			var $href = $(this).attr('href');
 
 			$('<div></div>').load($href+' form', function(){
-				
+
 				// set form
 				var $form = $(this).children('form');			
 
@@ -19,10 +19,12 @@ $(function(){
 				// form action url
 				var $url = $form.attr('action');
 
+console.log("url: " + $url); 
+
 				// set data
 				var $data = $form.serialize();
 
-				// console.log('url : ' + $url);
+console.log("data: " + $data); 
 
 				$.ajax({
 					url: $url,
@@ -31,15 +33,25 @@ $(function(){
 					dataType: 'json',
 					cache: false,
 					success: function(obj) {
+						console.log('success');
+
 						var $tic = $('#task-complete-' + obj.id + ' .ajax-task-complete');
+
 						if (obj.complete) {
 							$tic.text('X');
 						} else {
 							$tic.text('O')
 						}
 					},
-					complete: function() {
+					complete: function(obj) {
 						console.log('complete!');
+						var $tic = $('#task-complete-' + obj.id + ' .ajax-task-complete');
+
+						if (obj.complete) {
+							$tic.text('X');
+						} else {
+							$tic.text('O')
+						}						
 					},
 					error: function(err) {
 						console.log(err);
@@ -48,4 +60,5 @@ $(function(){
 			});
 		}
 	});
+	
 });

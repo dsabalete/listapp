@@ -38,6 +38,7 @@ class TaskController extends Controller
             'entities' => $entities,
         );
     }
+
     /**
      * Creates a new Task entity.
      *
@@ -155,32 +156,6 @@ class TaskController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing Task entity.
-     *
-     * @Route("/{id}/edit-complete", name="task_edit_complete")
-     * @Method("GET")
-     * @Template("DevTaskBundle:Task:complete.html.twig")
-     */
-    public function editCompleteAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('DevTaskBundle:Task')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Task entity.');
-        }
-
-        //$editForm = $this->createEditForm($entity);
-        $editForm = $this->createForm(new TaskCompleteType(), $entity);
-
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-        );
-    }    
-
-    /**
      * Creates a form to edit a Task entity.
      *
      * @param Task $entity The entity
@@ -198,6 +173,7 @@ class TaskController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Task entity.
      *
@@ -231,70 +207,6 @@ class TaskController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
     }
-    /**
-     * Edits an existing Task entity.
-     *
-     * @Route("/{id}/update-complete", name="task_update_complete")
-     * @Method("PUT")
-     * @Template("DevTaskBundle:Task:complete.html.twig")
-     */
-    public function updateCompleteAction(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('DevTaskBundle:Task')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Task entity.');
-        }
-
-
-        $entityDataAsJson = $this->encodeEntityDataToJson($entity);
-        return array(
-            'taskDataAsJson' => $entityDataAsJson
-        );
-        
-        
-        ////$editForm = $this->createEditForm($entity);
-        // $editForm = $this->createForm(new TaskCompleteType(), $entity);
-        // $editForm->handleRequest($request);
-
-        // if ($editForm->isValid()) {
-        //     //$em->persist();
-        //     $em->persist($entity);
-        //     $em->flush();
-
-        //     if ($request->isXmlHttpRequest()) {
-        //         $json = json_encode(array(
-        //             'id' => $entity->getId(),
-        //             'complete' => $entity->getComplete(),
-        //         ));
-
-        //         $response = new Response($json);
-        //         $response->headers->set('Content-Type', 'application/json');
-                
-        //         return $response;
-        //     }
-
-        //     return $this->redirect($this->generateUrl('task'));
-        // }
-
-        // return array(
-        //     'entity'      => $entity,
-        //     'edit_form'   => $editForm->createView(),
-        // );
-    }
-    
-    private function encodeEntityDataToJson(Task $task) 
-    {
-        $taskData = array(
-            'id' => $task->getId(),
-            'complete' => $task->getComplete()
-        );
-        $jsonEncoder = new JsonEncoder();
-        return $jsonEncoder->encode($taskData, $format = 'json');
-    }
-    
     
     /**
      * Deletes a Task entity.
@@ -321,6 +233,7 @@ class TaskController extends Controller
 
         return $this->redirect($this->generateUrl('task'));
     }
+
     /**
      * Creates a form to delete a Task entity by id.
      *
@@ -333,8 +246,88 @@ class TaskController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('task_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', 'submit', array('label' => 'Eliminar'))
             ->getForm()
         ;
     }
+
+
+    /**
+     * Displays a form to edit an existing Task entity.
+     *
+     * @Route("/{id}/edit-complete", name="task_edit_complete")
+     * @Method("GET")
+     * @Template("DevTaskBundle:Task:complete.html.twig")
+     */
+    public function editCompleteAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('DevTaskBundle:Task')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Task entity.');
+        }
+
+        $editForm = $this->createEditCompleteForm($entity);
+
+        return array(
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
+        );
+    } 
+
+
+    /**
+     * Creates a form to edit a Task entity.
+     *
+     * @param Task $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditCompleteForm(Task $entity)
+    {
+        $form = $this->createForm(new TaskCompleteType(), $entity, array(
+            'action' => $this->generateUrl('task_update_complete', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Actualiza'));
+
+        return $form;
+    }
+
+    /**
+     * Edits an existing Task entity.
+     *
+     * @Route("/{id}/update-complete", name="task_update_complete")
+     * @Method("PUT")
+     * @Template("DevTaskBundle:Task:complete.html.twig")
+     */
+    public function updateCompleteAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('DevTaskBundle:Task')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Task entity.');
+        }
+
+        $editForm = $this->createEditCompleteForm($entity);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isValid()) {
+            $em->persist($entity);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('task'));
+        }
+
+        return array(
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
+        );
+    }
+
 }
