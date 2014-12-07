@@ -258,7 +258,7 @@ class TaskController extends Controller
      * @Route("/{id}/edit-complete", name="task_edit_complete")
      * @Method("GET")
      * @Template("DevTaskBundle:Task:complete.html.twig")
-     */
+     */     
     public function editCompleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
