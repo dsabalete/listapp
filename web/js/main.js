@@ -1,9 +1,11 @@
+var resposta;
 $(function(){
-	
 	$('.ajax-task-complete').on({
 		click: function(e) {
 			e.preventDefault();
 			var $href = $(this).attr('href');
+			
+			//console.log("$href: " + $href); // /1/edit-complete
 
 			$('<div></div>').load($href+' form', function(){
 
@@ -19,12 +21,12 @@ $(function(){
 				// form action url
 				var $url = $form.attr('action');
 
-console.log("url: " + $url); 
+				//console.log("url: " + $url); // /1/update-complete
 
 				// set data
 				var $data = $form.serialize();
 
-console.log("data: " + $data); 
+				console.log("data: " + $data); // _method=PUT&dev_taskbundle_taskcomplete%5Bcomplete%5D=1&dev_taskbundle_taskcomplete%
 
 				$.ajax({
 					url: $url,
@@ -45,7 +47,12 @@ console.log("data: " + $data);
 					},
 					complete: function(obj) {
 						console.log('complete!');
+						resposta = obj;
+						console.log('obj: ' + obj.toString());
+						
 						var $tic = $('#task-complete-' + obj.id + ' .ajax-task-complete');
+
+						// obj.id undefined
 
 						if (obj.complete) {
 							$tic.text('X');
