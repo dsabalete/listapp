@@ -1,5 +1,6 @@
 var resposta;
 $(function(){
+
 	$('.ajax-task-complete').on({
 		click: function(e) {
 			e.preventDefault();
@@ -47,18 +48,6 @@ $(function(){
 					},
 					complete: function(obj) {
 						console.log('complete!');
-						resposta = obj;
-						console.log('obj: ' + obj.toString());
-						
-						var $tic = $('#task-complete-' + obj.id + ' .ajax-task-complete');
-
-						// obj.id undefined
-
-						if (obj.complete) {
-							$tic.text('X');
-						} else {
-							$tic.text('O')
-						}						
 					},
 					error: function(err) {
 						console.log(err);

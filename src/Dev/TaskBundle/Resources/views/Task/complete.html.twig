@@ -4,14 +4,13 @@
 {% block body -%}
     <h1>Tarea completada</h1>
 
-	{#<form action="{{ path('task_update_complete', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>#}
-	{{ form_start(edit_form, {'method':'POST'}) }}
+	<form action="{{ path('task_update_complete', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
 		<input type="hidden" name="_method" value="PUT" />
 	    {# form_widget(edit_form) #}
 	    {{ form_errors(edit_form) }}
 	    {{ form_widget(edit_form.complete) }}
 		{{ form_rest(edit_form) }}
-		<!--<p><button type="submit">Editar</button></p>-->
+		<p><button type="submit">Editar</button></p>
 	</form>
 
 <ul class="record_actions">

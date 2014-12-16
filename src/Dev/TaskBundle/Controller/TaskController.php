@@ -269,32 +269,12 @@ class TaskController extends Controller
             throw $this->createNotFoundException('Unable to find Task entity.');
         }
 
-        $editForm = $this->createEditCompleteForm($entity);
+        $editForm = $this->createForm(new TaskCompleteType(), $entity);
 
         return array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
         );
-    } 
-
-
-    /**
-     * Creates a form to edit a Task entity.
-     *
-     * @param Task $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createEditCompleteForm(Task $entity)
-    {
-        $form = $this->createForm(new TaskCompleteType(), $entity, array(
-            'action' => $this->generateUrl('task_update_complete', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
-
-        $form->add('submit', 'submit', array('label' => 'Actualiza'));
-
-        return $form;
     }
 
     /**
@@ -314,14 +294,24 @@ class TaskController extends Controller
             throw $this->createNotFoundException('Unable to find Task entity.');
         }
 
-        $editForm = $this->createEditCompleteForm($entity);
-        $editForm->handleRequest($request);
-        //$editForm->bind($request);
+        $editForm = $this->createForm(new TaskCompleteType(), $entity);
+        $editForm->bind($request);
 
         if ($editForm->isValid()) {
             $em->persist($entity);
             $em->flush();
-            
+
+            if ($request->isXmlHttpRequest()) {
+                $json = json_encode(array(
+                    'id' => $entity->getId(),
+                    'complete' => $entity->getComplete(),
+                ));
+
+                $response = new Response($json);
+                $response->headers->set('Content-Type', 'application/json');
+                return $response;
+            }
+
             return $this->redirect($this->generateUrl('task'));
         }
 
