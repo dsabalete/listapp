@@ -147,6 +147,15 @@ ul {
     color: #fff;
 }
 
+.task-create form input[type="text"] {
+    font-size: 150%;
+}
+
+.task-create form label, 
+.task-create form p {
+    display: none;
+}
+
 .records_list {
     width: 100%;
 }
@@ -285,6 +294,16 @@ ul {
         text-decoration: none;
         color: rgb(100,100,255);
     }    
+
+    .task-create form div, 
+    .task-create form p {
+        display: block;
+        float: left;
+        margin: 0; 
+    }
+    .task-create form p button {
+        margin-left: 0.500em;
+    }
 }
 
 @media print,

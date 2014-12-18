@@ -30,12 +30,24 @@ class TaskController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        // $em = $this->getDoctrine()->getManager();
+        // $entities = $em->getRepository('DevTaskBundle:Task')->findAll();
 
-        $entities = $em->getRepository('DevTaskBundle:Task')->findAll();
+        $repository = $this->getDoctrine()->getRepository('DevTaskBundle:Task');
 
+        $query = $repository->createQueryBuilder('t')
+            ->select('t.id','t.task','t.complete','t.created')
+            ->orderBy('t.created','DESC')
+            ->getQuery();
+
+        $entities = $query->getResult();
+        $entity = new Task();
+        //$form   = $this->createCreateForm($entity);
+        $form   = $this->createForm(new TaskType(), $entity);
         return array(
             'entities' => $entities,
+            'entity' => $entity,
+            'form'   => $form->createView(),
         );
     }
 

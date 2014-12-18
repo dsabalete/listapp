@@ -4,10 +4,14 @@
     <h1>Lista de Tareas</h1>
 
     <ul>
-        <li>
-            <a href="{{ path('task_new') }}">
-                Crear nueva tarea
-            </a>
+        <li class="task-create">
+            <form action="{{ path('task_create') }}" method="post" {{ form_enctype(form) }}>
+                {{ form_errors(form) }}
+                {{ form_row(form.task) }}
+                <div class="hidden">{{ form_widget(form.complete) }}</div>
+                {{ form_rest(form) }}
+
+            </form>
         </li>
     </ul> 
     <table class="records_list">

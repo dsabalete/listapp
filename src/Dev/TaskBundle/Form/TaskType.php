@@ -20,8 +20,8 @@ class TaskType extends AbstractType
                 'required' => true, // client side only
                 'error_bubbling' => true,
                 'attr' => array(
-                    'size' => '23',
-                    'placeholder' => 'accion necesaria...',
+                    'size' => '19',
+                    'placeholder' => 'Nueva tarea...',
                 )
             ))
             ->add('complete', 'checkbox', array(
