@@ -21,7 +21,7 @@ class TaskType extends AbstractType
                 'error_bubbling' => true,
                 'attr' => array(
                     'size' => '23',
-                    'placeholder' => 'requires action...',
+                    'placeholder' => 'accion necesaria...',
                 )
             ))
             ->add('complete', 'checkbox', array(

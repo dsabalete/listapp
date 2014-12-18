@@ -27,7 +27,7 @@ class Task
     /**
      * @var string
      *
-     * @assert\NotBlank(message="Task field is required.")
+     * @assert\NotBlank(message="El campo Tarea es necesario.")
      * @ORM\Column(name="task", type="string", length=255)
      */
     private $task;
