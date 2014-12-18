@@ -127,6 +127,26 @@ ul {
     padding: 0;
 }
 
+.msg {
+    background: rgb(113,223,133);
+    color: rbg(38,88,38);
+    padding: 0.813em 0;
+}
+
+.msg li {
+    padding: 0 0.813em;
+    margin-bottom: 0.500em;
+}
+
+.msg li:last-child {
+    margin: 0;
+}
+
+.err {
+    background: rgb(255,77,77);
+    color: #fff;
+}
+
 .records_list {
     width: 100%;
 }

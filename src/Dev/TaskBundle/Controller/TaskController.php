@@ -57,7 +57,7 @@ class TaskController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
+            $this->get('session')->getFlashBag()->add('notice', 'Tarea creada.');
             return $this->redirect($this->generateUrl('task_show', array('id' => $entity->getId())));
         }
 
@@ -147,7 +147,8 @@ class TaskController extends Controller
             throw $this->createNotFoundException('Unable to find Task entity.');
         }
 
-        $editForm = $this->createEditForm($entity);
+        //$editForm = $this->createEditForm($entity);
+        $editForm = $this->createForm(new TaskType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
@@ -194,13 +195,14 @@ class TaskController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
-        $editForm->handleRequest($request);
+        $editForm = $this->createForm(new TaskType(), $entity);
+        $editForm->bind($request);
 
         if ($editForm->isValid()) {
+            $em->persist($entity);
             $em->flush();
-
-            return $this->redirect($this->generateUrl('task_edit', array('id' => $id)));
+            $this->get('session')->getFlashBag()->add('notice', 'Tarea guardada.');
+            return $this->redirect($this->generateUrl('task'));
         }
 
         return array(
@@ -231,6 +233,7 @@ class TaskController extends Controller
 
             $em->remove($entity);
             $em->flush();
+            $this->get('session')->getFlashBag()->add('notice', 'Tarea eliminada.');
         }
 
         return $this->redirect($this->generateUrl('task'));
@@ -313,7 +316,7 @@ class TaskController extends Controller
                 $response->headers->set('Content-Type', 'application/json');
                 return $response;
             }
-
+            $this->get('session')->getFlashBag()->add('notice', 'Tarea actualizada.');
             return $this->redirect($this->generateUrl('task'));
         }
 

@@ -28,6 +28,14 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <div class="wrap">
+        {% set flashbag_notices = app.session.flashbag.get('notice') %}
+        {% if flashbag_notices is not empty %}
+        <ul class="msg">
+            {% for notice in flashbag_notices %}
+            <li>{{ notice }} </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
         {% block body %}{% endblock %}
         </div>
 

@@ -6,14 +6,13 @@
 
 	<form action="{{ path('task_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
 		<input type="hidden" name="_method" value="PUT" />
-		{# form(edit_form) #}
 	    {{ form_errors(edit_form) }}
 		{{ form_row(edit_form.task) }}
 		{{ form_widget(edit_form.complete) }}
 		{{ form_rest(edit_form) }}
-		{#<p>
-			<button type="submit">Edit</button>
-		</p>#}
+		<p>
+			<button type="submit" formnovalidate>Actualiza</button>
+		</p>
 	</form>
 
 <ul class="record_actions">
@@ -22,6 +21,5 @@
             Volver a la lista
         </a>
     </li>
-    <!--<li>{{ form(delete_form) }}</li>-->
 </ul>
 {% endblock %}
