@@ -50,6 +50,7 @@ class TaskController extends Controller
     {
         $entity = new Task();
         $form = $this->createCreateForm($entity);
+        //$form = $this->createForm(new TaskType(), $entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -80,7 +81,7 @@ class TaskController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Crea'));
 
         return $form;
     }
@@ -96,6 +97,7 @@ class TaskController extends Controller
     {
         $entity = new Task();
         $form   = $this->createCreateForm($entity);
+        //$form   = $this->createForm(new TaskType(), $entity);
 
         return array(
             'entity' => $entity,

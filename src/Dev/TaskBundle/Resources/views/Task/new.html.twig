@@ -3,7 +3,14 @@
 {% block body -%}
     <h1>Nueva Tarea</h1>
 
-    {{ form(form) }}
+	<form action="{{ path('task_create') }}" method="post" {{ form_enctype(form) }}>
+		{# form_widget(form)#}
+	    {{ form_errors(form) }}
+		{{ form_row(form.task) }}
+		<div class="hidden">{{ form_widget(form.complete) }}</div>
+		{{ form_rest(form) }}
+
+	</form>
 
         <ul class="record_actions">
     <li>

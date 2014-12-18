@@ -108,11 +108,16 @@ body {
     padding: 12px 0;
 }
 
+label {
+    margin-right: 0.813em;
+}
+
 .wrap {
-    padding: 0 32px;
+    padding: 0 0.813em;
 }
 
 a {
+    font-size: 125%;
     text-decoration: none;
     color: rgb(100,100,255);
 }
@@ -251,6 +256,15 @@ ul {
 
 @media only screen and (min-width: 35em) {
     /* Style adjustments for viewports that meet the condition */
+    .wrap {
+        padding: 0 2em;
+    }
+
+    a {
+        font-size: 100%;
+        text-decoration: none;
+        color: rgb(100,100,255);
+    }    
 }
 
 @media print,

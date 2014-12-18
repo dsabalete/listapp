@@ -17,10 +17,11 @@ class TaskType extends AbstractType
         $builder
             ->add('task', 'text', array(
                 'label' => 'Tarea',
-                'required' => true,
+                'required' => true, // client side only
+                'error_bubbling' => true,
                 'attr' => array(
-                    'size' => '32',
-                    'placeholder' => 'Siguiente tarea',
+                    'size' => '23',
+                    'placeholder' => 'requires action...',
                 )
             ))
             ->add('complete', 'checkbox', array(
