@@ -3,16 +3,14 @@
 {% block body -%}
     <h1>Lista de Tareas</h1>
 
+    <ul>
+        <li>
+            <a href="{{ path('task_new') }}">
+                Crear nueva tarea
+            </a>
+        </li>
+    </ul> 
     <table class="records_list">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Tarea</th>
-                <th>Completada</th>
-                <th>Creada</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
@@ -21,8 +19,8 @@
                         {% if entity.complete %} X {% else %} O {% endif %}</a>
                 </td>
                 <td>{{ entity.task }}</td>
-                <td>{{ entity.complete }}</td>
-                <td>{% if entity.created %}{{ entity.created|date('Y-m-d') }}{% endif %}</td> {#date('Y-m-d H:i:s')#}
+                {#<td>{{ entity.complete }}</td>
+                <td>{% if entity.created %}{{ entity.created|date('Y-m-d') }}{% endif %}</td> #}
                 <td>
                 <ul>
                     <li>
@@ -37,12 +35,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('task_new') }}">
-                Crear nueva tarea
-            </a>
-        </li>
-    </ul>
     {% endblock %}

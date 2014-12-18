@@ -112,11 +112,31 @@ body {
     padding: 0 32px;
 }
 
+a {
+    text-decoration: none;
+    color: rgb(100,100,255);
+}
 
+ul {
+    list-style: none;
+    padding: 0;
+}
 
+.records_list {
+    width: 100%;
+}
 
+.records_list tr {
+    border-bottom: 1px solid #ccc;
+}
 
+.records_list tr:last-child {
+    border: none;
+}
 
+.records_list td {
+    padding: 0.813em;
+}
 
 
 
