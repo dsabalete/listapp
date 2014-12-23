@@ -342,7 +342,7 @@ class TaskController extends Controller
     /**
      * Displays a form to edit an existing Task entity.
      *
-     * @Route("/{id}/edit-complete", name="task_edit_task")
+     * @Route("/{id}/edit-task", name="task_edit_task")
      * @Method("GET")
      * @Template("DevTaskBundle:Task:complete.html.twig")
      */     

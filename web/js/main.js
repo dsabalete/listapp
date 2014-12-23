@@ -1,15 +1,13 @@
-var resposta;
 $(function(){
-	$('.ajax-task-task').on({
-		click: function(e) {
-			e.preventDefault();
-			//$(this).css({'border': '1px solid'});
-			console.warn('empieza a editar el campo...');	
-		},
-		blur: function() {
-			//$(this).removeClass('editing');
-		}
-	});
+	
+	//defaults
+	$.fn.editable.defaults.mode = 'inline';
+	//$.fn.editable.defaults.url = '/post'; 
+	
+ 	$('.editable').editable({
+		type: 'text',
+		url: '/post'
+ 	}); 
 
 	$('.ajax-task-complete').on({
 		click: function(e) {

@@ -22,9 +22,10 @@
                     <a class="ajax-task-complete" href="{{ path('task_edit_complete', { 'id': entity.id }) }}">
                         {% if entity.complete %} X {% else %} O {% endif %}</a>
                 </td>
-                <td id="task-task-{{ entity.id }}">
-                    <a id="task-task-{{ entity.id }}" class="editable editable-click" data-title="Introduce una tarea"
-                        href="#">{{ entity.task }}</a>
+                <td>
+                    <a data-pk="{{ entity.id }}" data-type="text" id="task" href="#" class="editable editable-click">
+                        {{ entity.task }}
+                    </a>
                 </td>
                 {# <td>{{ entity.complete }}</td><td>{% if entity.created %}{{ entity.created|date('Y-m-d') }}{% endif %}</td> #}
                 <td>
