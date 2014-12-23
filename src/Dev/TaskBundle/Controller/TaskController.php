@@ -338,4 +338,29 @@ class TaskController extends Controller
         );
     }
 
+
+    /**
+     * Displays a form to edit an existing Task entity.
+     *
+     * @Route("/{id}/edit-complete", name="task_edit_task")
+     * @Method("GET")
+     * @Template("DevTaskBundle:Task:complete.html.twig")
+     */     
+    public function editTaskAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('DevTaskBundle:Task')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Task entity.');
+        }
+
+        $editForm = $this->createForm(new TaskCompleteType(), $entity);
+
+        return array(
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
+        );
+    }
 }

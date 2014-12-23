@@ -1,5 +1,15 @@
 var resposta;
 $(function(){
+	$('.ajax-task-task').on({
+		click: function(e) {
+			e.preventDefault();
+			//$(this).css({'border': '1px solid'});
+			console.warn('empieza a editar el campo...');	
+		},
+		blur: function() {
+			//$(this).removeClass('editing');
+		}
+	});
 
 	$('.ajax-task-complete').on({
 		click: function(e) {

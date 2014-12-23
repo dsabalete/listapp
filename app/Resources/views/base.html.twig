@@ -16,6 +16,7 @@
             {% stylesheets 
                 'css/normalize.css'
                 'css/main.css'
+                'css/jquery-editable.css'
                 filter='cssrewrite'
             %}
         <link rel="stylesheet" href="{{ asset_url }}">
@@ -47,9 +48,11 @@
             {% javascripts 
                 'js/plugins.js'
                 'js/main.js'
+                'js/vendor/jquery.poshytip.js'
+                'js/vendor/jquery-editable-poshytip.min.js'
             %}
         <script src="{{ asset_url }}"></script>
-            {% endjavascripts %}    
+            {% endjavascripts %}
         {% endblock %}
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. 
