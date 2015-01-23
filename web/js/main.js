@@ -1,12 +1,12 @@
 $(function(){
 	
 	//defaults
-	$.fn.editable.defaults.mode = 'inline';
+	//$.fn.editable.defaults.mode = 'inline';
 	//$.fn.editable.defaults.url = '/post'; 
 	
- 	$('.editable').editable({
-		type: 'text',
-		url: '/post'
+ 	$('.edit').editable($(this).attr('href'), {
+ 		indicator: 'Guardando cambios...',
+ 		tooltip: 'Haga clic para editar...'
  	}); 
 
 	$('.ajax-task-complete').on({
@@ -14,7 +14,7 @@ $(function(){
 			e.preventDefault();
 			var $href = $(this).attr('href');
 			
-			//console.log("$href: " + $href); // /1/edit-complete
+			console.log("$href: " + $href); // /1/edit-complete
 
 			$('<div></div>').load($href+' form', function(){
 

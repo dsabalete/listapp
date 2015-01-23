@@ -293,6 +293,39 @@ class TaskController extends Controller
             'edit_form'   => $editForm->createView(),
         );
     }
+    
+    /**
+     * Displays a inline form to edit an existing Task entity.
+     *
+     * @Route("/{id}/inline-edit", name="task_inline_edit")
+     * @Method("PUT")
+     * @Template("DevTaskBundle:Task:edit.html.twig")
+     */
+    public function inlineEditAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $entity = $em->getRepository('DevTaskBundle:Task')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Task entity.');
+        }
+
+        $editForm = $this->createForm(new TaskType(), $entity);
+        $editForm->bind($request);
+
+        if ($editForm->isValid()) {
+            $em->persist($entity);
+            $em->flush();
+            $this->get('session')->getFlashBag()->add('notice', 'Tarea guardada.');
+            return $this->redirect($this->generateUrl('task'));
+        }
+
+        return array(
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
+        );
+    } 
 
     /**
      * Edits an existing Task entity.

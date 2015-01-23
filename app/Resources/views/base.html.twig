@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>{% block title %} LISTAPP v0.3 {% endblock %}</title>
+        <title>{% block title %} LISTAPP v0.4 {% endblock %}</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -16,7 +16,6 @@
             {% stylesheets 
                 'css/normalize.css'
                 'css/main.css'
-                'css/jquery-editable.css'
                 filter='cssrewrite'
             %}
         <link rel="stylesheet" href="{{ asset_url }}">
@@ -48,8 +47,7 @@
             {% javascripts 
                 'js/plugins.js'
                 'js/main.js'
-                'js/vendor/jquery.poshytip.js'
-                'js/vendor/jquery-editable-poshytip.min.js'
+                'js/vendor/jquery.jeditable.mini.js'
             %}
         <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
