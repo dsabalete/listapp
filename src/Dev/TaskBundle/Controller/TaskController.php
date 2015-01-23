@@ -299,7 +299,7 @@ class TaskController extends Controller
      *
      * @Route("/{id}/inline-edit", name="task_inline_edit")
      * @Method("PUT")
-     * @Template("DevTaskBundle:Task:edit.html.twig")
+     * @Template("")
      */
     public function inlineEditAction(Request $request, $id)
     {
@@ -317,8 +317,9 @@ class TaskController extends Controller
         if ($editForm->isValid()) {
             $em->persist($entity);
             $em->flush();
-            $this->get('session')->getFlashBag()->add('notice', 'Tarea guardada.');
-            return $this->redirect($this->generateUrl('task'));
+            //$this->get('session')->getFlashBag()->add('notice', 'Tarea guardada.');
+            //return $this->redirect($this->generateUrl('task'));
+             return $this->redirect($this->generateUrl('task'));
         }
 
         return array(

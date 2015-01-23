@@ -1,20 +1,11 @@
 $(function(){
-	
-	//defaults
-	//$.fn.editable.defaults.mode = 'inline';
-	//$.fn.editable.defaults.url = '/post'; 
-	
- 	$('.edit').editable($(this).attr('href'), {
- 		indicator: 'Guardando cambios...',
- 		tooltip: 'Haga clic para editar...'
- 	}); 
 
 	$('.ajax-task-complete').on({
 		click: function(e) {
 			e.preventDefault();
 			var $href = $(this).attr('href');
 			
-			console.log("$href: " + $href); // /1/edit-complete
+			// console.log("$href: " + $href); // /1/edit-complete
 
 			$('<div></div>').load($href+' form', function(){
 
@@ -64,5 +55,16 @@ $(function(){
 			});
 		}
 	});
+	
+	
+	// http://www.appelsiini.net/projects/jeditable
+ 	$('.edit').editable($(this).attr('href'), {
+ 		indicator: 'Guardando cambios...',
+ 		tooltip: 'Haga clic para editar...',
+ 		
+ 		target: $(this).attr('href'),
+ 		id: $(this).attr('pk-data'),
+ 		//name: $(this).val()
+ 	}); 	
 	
 });

@@ -23,7 +23,7 @@
                         {% if entity.complete %} X {% else %} O {% endif %}</a>
                 </td>
                 <td>
-                    <span class="edit" href="{{ path('task_inline_edit', { 'id': entity.id }) }}">{{ entity.task }}</span>
+                    <span class="edit" href="{{ path('task_inline_edit', { 'id': entity.id }) }}" pk-data="{{ entity.id }}">{{ entity.task }}</span>
                 </td>
                 {# <td>{{ entity.complete }}</td><td>{% if entity.created %}{{ entity.created|date('Y-m-d') }}{% endif %}</td> #}
                 <td>
