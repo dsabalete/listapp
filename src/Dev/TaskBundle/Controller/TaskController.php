@@ -127,7 +127,6 @@ class TaskController extends Controller
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('DevTaskBundle:Task')->find($id);
 
         if (!$entity) {
@@ -152,7 +151,6 @@ class TaskController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('DevTaskBundle:Task')->find($id);
 
         if (!$entity) {
@@ -199,7 +197,6 @@ class TaskController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('DevTaskBundle:Task')->find($id);
 
         if (!$entity) {
@@ -279,7 +276,6 @@ class TaskController extends Controller
     public function editCompleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('DevTaskBundle:Task')->find($id);
 
         if (!$entity) {
@@ -297,35 +293,27 @@ class TaskController extends Controller
     /**
      * Displays a inline form to edit an existing Task entity.
      *
-     * @Route("/{id}/inline-edit", name="task_inline_edit")
-     * @Method("PUT")
-     * @Template("")
+     * @Route("/inline-edit", name="task_inline_edit")
+     * @Method("POST")
+     * 
      */
-    public function inlineEditAction(Request $request, $id)
+    public function inlineEditAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $id = $request->request->get('id');
+        $descripcion = $request->request->get('value');
         
+        $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('DevTaskBundle:Task')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Task entity.');
         }
-
-        $editForm = $this->createForm(new TaskType(), $entity);
-        $editForm->bind($request);
-
-        if ($editForm->isValid()) {
-            $em->persist($entity);
-            $em->flush();
-            //$this->get('session')->getFlashBag()->add('notice', 'Tarea guardada.');
-            //return $this->redirect($this->generateUrl('task'));
-             return $this->redirect($this->generateUrl('task'));
-        }
-
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-        );
+        
+        $entity->setTask($descripcion);        
+        $em->persist($entity);
+        $em->flush();
+        
+        return new Response($descripcion);
     } 
 
     /**
@@ -338,7 +326,6 @@ class TaskController extends Controller
     public function updateCompleteAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('DevTaskBundle:Task')->find($id);
 
         if (!$entity) {

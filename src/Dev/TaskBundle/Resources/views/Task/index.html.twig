@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Lista de Tareas</h1>
+    <!--<h1>Lista de Tareas</h1>
 
     <ul>
         <li class="task-create">
@@ -14,6 +14,8 @@
             </form>
         </li>
     </ul> 
+    -->
+    
     <table class="records_list">
         <tbody>
         {% for entity in entities %}
@@ -23,7 +25,7 @@
                         {% if entity.complete %} X {% else %} O {% endif %}</a>
                 </td>
                 <td>
-                    <span class="edit" href="{{ path('task_inline_edit', { 'id': entity.id }) }}" pk-data="{{ entity.id }}">{{ entity.task }}</span>
+                    <div class="edit" id="{{ entity.id }}">{{ entity.task }}</div>
                 </td>
                 {# <td>{{ entity.complete }}</td><td>{% if entity.created %}{{ entity.created|date('Y-m-d') }}{% endif %}</td> #}
                 <td>

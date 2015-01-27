@@ -58,13 +58,14 @@ $(function(){
 	
 	
 	// http://www.appelsiini.net/projects/jeditable
- 	$('.edit').editable($(this).attr('href'), {
- 		indicator: 'Guardando cambios...',
- 		tooltip: 'Haga clic para editar...',
- 		
- 		target: $(this).attr('href'),
- 		id: $(this).attr('pk-data'),
- 		//name: $(this).val()
+ 	$('.edit').editable("/web/app_dev.php/task/inline-edit", {
+ 		indicator: '<img src="../../img/loading.gif">',
+ 		tooltip: "Haga clic para editar...",
+ 		submitdata: { 
+ 			_method: "post", 
+ 			id: $(this).attr('id'), 
+ 			value: $(this).html()
+ 		}
  	}); 	
 	
 });
