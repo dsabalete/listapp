@@ -58,7 +58,7 @@ $(function(){
 	
 	
 	// http://www.appelsiini.net/projects/jeditable
- 	$('.edit').editable("/web/app_dev.php/task/inline-edit", {
+ 	$('.taskedit').editable("/web/app_dev.php/task/inline-edit", {
  		indicator: '<img src="../../img/loading.gif">',
  		tooltip: "Haga clic para editar...",
  		submitdata: { 
@@ -66,6 +66,18 @@ $(function(){
  			id: $(this).attr('id'), 
  			value: $(this).html()
  		}
- 	}); 	
+ 	}); 
+ 	
+ 	$('.listedit').editable("/web/app_dev.php/list/inline-edit", {
+ 		indicator: '<img src="../../img/loading.gif">',
+ 		tooltip: "Haga clic para editar...",
+ 		submitdata: { 
+ 			_method: "post", 
+ 			id: $(this).attr('id'), 
+ 			value: $(this).html()
+ 		}
+ 	}); 
+ 	
+ 	
 	
 });

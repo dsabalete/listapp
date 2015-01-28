@@ -122,7 +122,7 @@ a {
     color: rgb(100,100,255);
 }
 
-.edit {
+.taskedit, .listedit {
     color: rgb(100,100,255);
 }
 
@@ -176,8 +176,25 @@ ul {
     padding: 0.813em;
 }
 
+.round-button {
+    display:block;
+    width:100px;
+    height:40px;
+    line-height:40px;
+    border: 2px solid #f5f5f5;
+    border-radius: 50%;
+    color:#f5f5f5;
+    text-align:center;
+    text-decoration:none;
+    background: #666;
+    box-shadow: 0 0 3px gray;
+    font-size:20px;
+    font-weight:bold;
+}
 
-
+.round-button:hover {
+    background: #262626;
+}
 
 
 /* ==========================================================================
