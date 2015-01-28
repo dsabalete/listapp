@@ -1,0 +1,59 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+
+    <h1>LISTAPP: Vista principal</h1>
+
+{#
+    <ul>
+        <li class="task-create">
+            <form action="{{ path('task_create') }}" method="post" {{ form_enctype(form) }}>
+                {{ form_errors(form) }}
+                {{ form_row(form.task) }}
+                <div class="hidden">{{ form_widget(form.complete) }}</div>
+                {{ form_rest(form) }}
+
+            </form>
+        </li>
+    </ul>
+#} 
+
+    <table class="records_list">
+        <tbody>
+        
+        {% for entity in entities %}
+            <tr>
+                
+                <td>
+                    <div class="listedit" id="{{ entity.id }}">{{ entity.name }}</div>
+                </td>
+                
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('list_show', { 'id': entity.id }) }}" class="round-button">muestra</a>
+                        </li>
+                        {#
+                        <li>
+                            <a href="{{ path('task_edit', { 'id': entity.id }) }}">edita</a>
+                        </li>
+                        #}   
+                    </ul>
+                </td>
+                
+            </tr>
+        {% endfor %}
+            <tr>
+                <td colspan="2">
+                     <ul>
+                        <li>
+                            <a href="{{ path('list_create') }}" class="round-button">nueva</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+   
+    {% endblock %}

@@ -9,8 +9,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Task
  *
+ * @ORM\Entity 
  * @ORM\Table(name="task")
- * @ORM\Entity
  * @ORM\HasLifecycleCallbacks()
  */
 class Task
@@ -22,7 +22,7 @@ class Task
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
@@ -30,22 +30,29 @@ class Task
      * @assert\NotBlank(message="El campo Tarea es necesario.")
      * @ORM\Column(name="task", type="string", length=255)
      */
-    private $task;
+    protected $task;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="complete", type="boolean", nullable=true)
      */
-    private $complete;
+    protected $complete;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="created", type="datetime")
      */
-    private $created;
+    protected $created;
 
+
+    /**
+     * @ORM\ManyToOne(targetEntity="TaskList", inversedBy="tasks")
+     * @ORM\JoinColumn(name="id", referencedColumnName="id")
+     */
+    protected $tasklist;
+    
 
     /**
      * Get id
@@ -106,14 +113,12 @@ class Task
     /**
      * Set created
      *
-     * @ORM\PrePersist
      * @param \DateTime $created
      * @return Task
      */
-    public function setCreated()
+    public function setCreated($created)
     {
-        if (!isset($this->created)) 
-            $this->created = new \DateTime();
+        $this->created = $created;
 
         return $this;
     }
@@ -126,5 +131,28 @@ class Task
     public function getCreated()
     {
         return $this->created;
+    }
+
+    /**
+     * Set tasklist
+     *
+     * @param \Dev\TaskBundle\Entity\TaskList $tasklist
+     * @return Task
+     */
+    public function setTasklist(\Dev\TaskBundle\Entity\TaskList $tasklist = null)
+    {
+        $this->tasklist = $tasklist;
+
+        return $this;
+    }
+
+    /**
+     * Get tasklist
+     *
+     * @return \Dev\TaskBundle\Entity\TaskList 
+     */
+    public function getTasklist()
+    {
+        return $this->tasklist;
     }
 }

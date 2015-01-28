@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Lista de Tareas</h1>
+    <h1>{{ entity.id }}</h1>
 
     <ul>
         <li class="task-create">
@@ -19,24 +19,32 @@
         <tbody>
         {% for entity in entities %}
             <tr>
+                
                 <td id="task-complete-{{ entity.id }}">
                     <a class="ajax-task-complete" href="{{ path('task_edit_complete', { 'id': entity.id }) }}">
                         {% if entity.complete %} X {% else %} O {% endif %}</a>
                 </td>
+                
                 <td>
-                    <div class="edit" id="{{ entity.id }}">{{ entity.task }}</div>
+                    <div class="taskedit" id="{{ entity.id }}">{{ entity.task }}</div>
                 </td>
+                
                 {# <td>{{ entity.complete }}</td><td>{% if entity.created %}{{ entity.created|date('Y-m-d') }}{% endif %}</td> #}
+                 
                 <td>
                 <ul>
                     <li>
                         <a href="{{ path('task_show', { 'id': entity.id }) }}">muestra</a>
                     </li>
+                    
                     <li>
                         <a href="{{ path('task_edit', { 'id': entity.id }) }}">edita</a>
                     </li>
+                   
                 </ul>
                 </td>
+                
+                {# #}
             </tr>
         {% endfor %}
         </tbody>
