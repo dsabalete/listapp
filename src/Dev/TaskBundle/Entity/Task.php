@@ -7,49 +7,36 @@ use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Task
- *
  * @ORM\Entity 
  * @ORM\Table(name="task")
- * @ORM\HasLifecycleCallbacks()
  */
 class Task
 {
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
     /**
-     * @var string
-     *
-     * @assert\NotBlank(message="El campo Tarea es necesario.")
-     * @ORM\Column(name="task", type="string", length=255)
+     * @ORM\Column(type="string", length=255)
      */
     protected $task;
 
     /**
-     * @var boolean
-     *
-     * @ORM\Column(name="complete", type="boolean", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
     protected $complete;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="created", type="datetime")
+     * @ORM\Column(type="datetime")
      */
     protected $created;
 
-
     /**
      * @ORM\ManyToOne(targetEntity="TaskList", inversedBy="tasks")
-     * @ORM\JoinColumn(name="id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="tasklist_id", referencedColumnName="id")
      */
     protected $tasklist;
     

@@ -78,16 +78,13 @@ $(function(){
  		tooltip: 'Haz click aquí para editar',
  	}); 
  	
- 	$('.listcreate').editable("web/app_dev.php/list/inline-create", {
+ 	$('.listcreate').editable("inline-create", {
  		submitdata: { 
- 			_method: "post", 
- 			id: $(this).attr('id'), 
+ 			_method: "post",
  			value: $(this).html()
  		},
  		indicator: '<img src="../../img/loading.gif">',
  		tooltip: 'Haz click aquí para editar',
  	});
  	
- 	
-	
 });

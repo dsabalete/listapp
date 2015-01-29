@@ -71,9 +71,7 @@ class ListController extends Controller
      */
     public function inlineCreateAction(Request $request)
     {
-       
-        
-        //$id = $request->request->get('id');
+        /*
         $name = $request->request->get('value');
         
         $em = $this->getDoctrine()->getManager();
@@ -87,7 +85,8 @@ class ListController extends Controller
         $entity->setName($name);        
         $em->persist($entity);
         $em->flush();
-        
+        */
+        $name = 'pepe';
         return new Response($name);
     }    
     
