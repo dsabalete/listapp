@@ -20,7 +20,23 @@
 
     <table class="records_list">
         <tbody>
-        
+            <tr>
+                <td>
+                    <div class="listcreate"></div>
+                </td>
+                <td>
+                    
+                </td>
+                {#
+                <td colspan="2">
+                     <ul>
+                        <li>
+                            <a href="{{ path('list_create') }}" class="">+</a>
+                        </li>
+                    </ul>
+                </td>
+                #}
+            </tr>        
         {% for entity in entities %}
             <tr>
                 
@@ -31,7 +47,8 @@
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('list_show', { 'id': entity.id }) }}" class="round-button">muestra</a>
+                            <a href="{{ path('list_show', { 'id': entity.id }) }}" 
+                                class="">ver</a>
                         </li>
                         {#
                         <li>
@@ -43,15 +60,7 @@
                 
             </tr>
         {% endfor %}
-            <tr>
-                <td colspan="2">
-                     <ul>
-                        <li>
-                            <a href="{{ path('list_create') }}" class="round-button">nueva</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
+            
         </tbody>
     </table>
     

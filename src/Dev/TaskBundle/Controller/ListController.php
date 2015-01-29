@@ -63,6 +63,35 @@ class ListController extends Controller
     }
     
     /**
+     * Displays a inline form to edit an existing Task entity.
+     *
+     * @Route("/inline-create", name="list_inline_create")
+     * @Method("POST")
+     * 
+     */
+    public function inlineCreateAction(Request $request)
+    {
+       
+        
+        //$id = $request->request->get('id');
+        $name = $request->request->get('value');
+        
+        $em = $this->getDoctrine()->getManager();
+        $entity = new TaskList();
+        //$entity = $em->getRepository('DevTaskBundle:TaskList')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Task entity.');
+        }
+        
+        $entity->setName($name);        
+        $em->persist($entity);
+        $em->flush();
+        
+        return new Response($name);
+    }    
+    
+    /**
      * Creates a new TaskList entity.
      *
      * @Route("/create", name="list_create")

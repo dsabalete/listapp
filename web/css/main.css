@@ -122,7 +122,7 @@ a {
     color: rgb(100,100,255);
 }
 
-.taskedit, .listedit {
+.taskedit, .listedit, .listcreate {
     color: rgb(100,100,255);
 }
 
@@ -161,7 +161,7 @@ ul {
 }
 
 .records_list {
-    width: 100%;
+    /*width: 100%;*/
 }
 
 .records_list tr {
@@ -176,6 +176,9 @@ ul {
     padding: 0.813em;
 }
 
+.records_list td:first-child {
+    width: 20rem;
+}
 .round-button {
     display:block;
     width:100px;

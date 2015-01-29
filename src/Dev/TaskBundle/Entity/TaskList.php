@@ -40,9 +40,12 @@ class TaskList
      */
     protected $name;    
     
+    
+    /*
     public function __construct() {
         $this->$tasks = new ArrayCollection();
     }
+    */
 
     /**
      * Get id

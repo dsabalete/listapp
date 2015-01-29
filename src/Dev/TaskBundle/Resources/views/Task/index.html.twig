@@ -2,21 +2,23 @@
 
 {% block body -%}
     <h1>{{ entity.id }}</h1>
-
-    <ul>
-        <li class="task-create">
-            <form action="{{ path('task_create') }}" method="post" {{ form_enctype(form) }}>
-                {{ form_errors(form) }}
-                {{ form_row(form.task) }}
-                <div class="hidden">{{ form_widget(form.complete) }}</div>
-                {{ form_rest(form) }}
-
-            </form>
-        </li>
-    </ul>
     
     <table class="records_list">
         <tbody>
+            <tr>
+                <td colspan="3">
+                    
+                    <form action="{{ path('task_create') }}" method="post" {{ form_enctype(form) }}>
+                        {{ form_errors(form) }}
+                        {{ form_row(form.task) }}
+                        <div class="hidden">{{ form_widget(form.complete) }}</div>
+                        {{ form_rest(form) }}
+        
+                    </form>                    
+                    
+                </td>
+            </tr>
+            
         {% for entity in entities %}
             <tr>
                 
