@@ -32,23 +32,4 @@ class DefaultController extends Controller
             //'form'   => $form->createView(),
         );
     }
-
-    /**
-     * @Route("/inline-create")
-     * @Method("POST")
-     */
-    public function createListAction(Request $request)
-    {
-    	$name = $request->request->get('value');
-    	$em = $this->getDoctrine()->getManager();
-        $entity = new TaskList();
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Task entity.');
-        }
-        $entity->setName($name); 
-        $entity->setCreated(new \DateTime("now"));      
-        $em->persist($entity);
-        $em->flush();
-        return new Response($name);
-    }
 }

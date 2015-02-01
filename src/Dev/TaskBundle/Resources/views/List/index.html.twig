@@ -22,7 +22,7 @@
         <tbody>
             <tr>
                 <td>
-                    <div class="listcreate"></div>
+                    <div class="listcreate">+ Nueva lista</div>
                 </td>
                 <td>
                     
@@ -47,14 +47,13 @@
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('list_show', { 'id': entity.id }) }}" 
-                                class="">ver</a>
+                            <a href="{{ path('list_show', { 'id': entity.id }) }}">detalle</a>
                         </li>
-                        {#
+                        
                         <li>
-                            <a href="{{ path('task_edit', { 'id': entity.id }) }}">edita</a>
+                            <a href="{{ path('list_items', { 'id': entity.id }) }}">items</a>
                         </li>
-                        #}   
+                           
                     </ul>
                 </td>
                 

@@ -1,0 +1,52 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+   
+   <h1>Lista: '{{ entity.name }}'</h1>
+
+    <table class="records_list">
+        <tbody>
+            <tr>
+                <td>
+                    <div class="itemcreate">+ Nuevo item</div>
+                </td>
+                <td>
+                    
+                </td>
+
+
+        {% for item in items %}
+            <tr>
+                
+                <td>
+                    <div class="taskedit" id="{{ item.id }}">{{ item.task }}</div>
+                </td>
+                
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('task_show', { 'id': item.id }) }}">detalle</a>
+                        </li>
+                        
+                        <li>
+                            <a href="{{ path('task_delete', { 'id': item.id }) }}">borra</a>
+                        </li>
+                           
+                    </ul>
+                </td>
+                
+            </tr>
+        {% endfor %}
+            
+        </tbody>
+    </table>
+
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('list') }}">
+            &lt;- Volver a la lista
+        </a>
+    </li>
+</ul>
+{% endblock %}

@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Dev\TaskBundle\Entity\TaskList;
+use Dev\TaskBundle\Entity\Task;
 use Dev\TaskBundle\Form\TaskListType;
 // use Dev\TaskBundle\Form\TaskCompleteType;
 // use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -35,7 +36,7 @@ class ListController extends Controller
             //'form'   => $form->createView(),
         );
     }
-    
+
     /**
      * Displays a inline form to edit an existing Task entity.
      *
@@ -61,6 +62,34 @@ class ListController extends Controller
         
         return new Response($name);
     }
+
+    /**
+     * Edita el nombre de una tarea de una lista
+     *
+     * @Route("/{id}/inline-edit", name="task_inline_edit")
+     * @Method("POST")
+     * 
+     */
+    public function inlineTaskEditAction(Request $request)
+    {
+        $id = $request->request->get('id');
+        $name = $request->request->get('value');
+        
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('DevTaskBundle:TaskList')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Task entity.');
+        }
+        
+        $tasks = $entity->getTasks();
+
+               
+        $em->persist($entity);
+        $em->flush();
+        
+        return new Response($name);
+    }
     
     /**
      * Displays a inline form to edit an existing Task entity.
@@ -71,22 +100,16 @@ class ListController extends Controller
      */
     public function inlineCreateAction(Request $request)
     {
-        /*
         $name = $request->request->get('value');
-        
         $em = $this->getDoctrine()->getManager();
         $entity = new TaskList();
-        //$entity = $em->getRepository('DevTaskBundle:TaskList')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Task entity.');
         }
-        
-        $entity->setName($name);        
+        $entity->setName($name); 
+        $entity->setCreated(new \DateTime("now"));      
         $em->persist($entity);
         $em->flush();
-        */
-        $name = 'pepe';
         return new Response($name);
     }    
     
@@ -171,8 +194,6 @@ class ListController extends Controller
     } 
     
     /**
-     * Finds and displays a TaskList entity.
-     *
      * @Route("/{id}", name="list_show")
      * @Method("GET")
      * @Template()
@@ -194,6 +215,58 @@ class ListController extends Controller
         );
     }    
     
+    /**
+     * @Route("/{id}/items", name="list_items")
+     * @Method("GET")
+     * @Template()
+     */
+    public function itemsAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('DevTaskBundle:TaskList')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find TaskList entity.');
+        }
+
+        $items = $entity->getTasks();
+        //$deleteForm = $this->createDeleteForm($id);
+
+        return array(
+            'entity'    => $entity,
+            'items'     => $items,
+          //  'delete_form' => $deleteForm->createView(),
+        );
+    }
+
+
+
+    /**
+     * @Route("/{id}/item-create", name="list_item_create")
+     * @Method("POST")
+     */
+    public function itemCreateAction(Request $request, $id)
+    {        
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('DevTaskBundle:TaskList')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Task entity.');
+        }
+        
+
+        $name = $request->request->get('value');
+
+        $task = new Task();
+        $task->setTasklist($entity);
+        $task->setTask($name);
+        $task->setCreated(new \DateTime("now"));
+
+        $em->persist($task);
+        $em->flush();
+        
+        return new Response($name);
+    }     
     
     /**
      * Displays a form to edit an existing TaskList entity.
