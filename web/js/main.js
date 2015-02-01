@@ -58,7 +58,31 @@ $(function(){
 	
 	
 	// http://www.appelsiini.net/projects/jeditable
- 	$('.taskedit').editable("/web/app_dev.php/task/inline-edit", {
+ 	$('.listcreate').editable("inline-create", {
+ 		submitdata: { 
+ 			_method: "post",
+ 			value: $(this).html()
+ 		},
+ 		indicator: '<img src="../../img/loading.gif">',
+ 		tooltip: 'Haz click aquí para editar',
+ 		callback: function() {
+ 			location.href = '';
+ 		}
+ 	});
+
+ 	$('.itemcreate').editable("item-create", {
+ 		submitdata: { 
+ 			_method: "post",
+ 			value: $(this).html()
+ 		},
+ 		indicator: '<img src="../../img/loading.gif">',
+ 		tooltip: 'Haz click aquí para editar',
+ 		callback: function() {
+ 			location.href = '';
+ 		}
+ 	}); 
+	
+ 	$('.taskedit').editable("inline-edit", {
  		indicator: '<img src="../../img/loading.gif">',
  		tooltip: "Haga clic para editar...",
  		submitdata: { 
@@ -67,8 +91,13 @@ $(function(){
  			value: $(this).html()
  		}
  	}); 
+
+
+
+
+
  	
- 	$('.listedit').editable("/web/app_dev.php/list/inline-edit", {
+ 	$('.listedit').editable("inline-edit", {
  		submitdata: { 
  			_method: "post", 
  			id: $(this).attr('id'), 
@@ -77,14 +106,5 @@ $(function(){
  		indicator: '<img src="../../img/loading.gif">',
  		tooltip: 'Haz click aquí para editar',
  	}); 
- 	
- 	$('.listcreate').editable("inline-create", {
- 		submitdata: { 
- 			_method: "post",
- 			value: $(this).html()
- 		},
- 		indicator: '<img src="../../img/loading.gif">',
- 		tooltip: 'Haz click aquí para editar',
- 	});
  	
 });
