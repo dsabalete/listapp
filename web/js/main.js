@@ -56,7 +56,7 @@ $(function(){
 		}
 	});
 	
-	
+
 	// http://www.appelsiini.net/projects/jeditable
  	$('.listcreate').editable("inline-create", {
  		submitdata: { 
@@ -106,5 +106,7 @@ $(function(){
  		indicator: '<img src="../../img/loading.gif">',
  		tooltip: 'Haz click aquí para editar',
  	}); 
+ 	
+	
  	
 });

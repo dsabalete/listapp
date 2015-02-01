@@ -297,24 +297,25 @@ class TaskController extends Controller
      * @Method("POST")
      * 
      */
-    public function inlineEditAction(Request $request)
-    {
-        $id = $request->request->get('id');
-        $descripcion = $request->request->get('value');
+    // public function inlineEditAction(Request $request)
+    // {
+    //     $id = $request->request->get('id');
+    //     $descripcion = $request->request->get('value');
         
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('DevTaskBundle:Task')->find($id);
+    //     $em = $this->getDoctrine()->getManager();
+    //     $entity = $em->getRepository('DevTaskBundle:Task')->find($id);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Task entity.');
-        }
+    //     if (!$entity) {
+    //         throw $this->createNotFoundException('Unable to find Task entity.');
+    //     }
         
-        $entity->setTask($descripcion);        
-        $em->persist($entity);
-        $em->flush();
+    //     $entity->setTask($descripcion);        
+    //     $em->persist($entity);
+    //     $em->flush();
         
-        return new Response($descripcion);
-    } 
+    //     return new Response($descripcion);
+    // } 
+    
 
     /**
      * Edits an existing Task entity.
