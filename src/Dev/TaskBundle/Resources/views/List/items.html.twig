@@ -7,16 +7,17 @@
     <table class="records_list">
         <tbody>
             <tr>
-                <td>
+                <td colspan="3">
                     <div class="itemcreate">+ Nuevo item</div>
                 </td>
-                <td>
-                    
-                </td>
-
 
         {% for item in items %}
             <tr>
+
+                <td id="task-complete-{{ item.id }}">
+                    <a class="ajax-task-complete" href="{{ path('task_edit_complete', { 'id': item.id }) }}">
+                        {% if item.complete %} X {% else %} O {% endif %}</a>
+                </td>                
                 
                 <td>
                     <div class="taskedit" id="{{ item.id }}">{{ item.task }}</div>
@@ -25,11 +26,11 @@
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('task_show', { 'id': item.id }) }}">detalle</a>
+                            <a href="{{ path('item_show', { 'id': item.id }) }}">detalle</a>
                         </li>
                         
                         <li>
-                            <a href="{{ path('task_delete', { 'id': item.id }) }}">borra</a>
+                            <a href="{{ path('item_delete', { 'id': item.id }) }}">borra</a>
                         </li>
                            
                     </ul>

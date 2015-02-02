@@ -177,7 +177,7 @@ ul {
 }
 
 .records_list td:first-child {
-    width: 20rem;
+    /*width: 20rem;*/
 }
 .round-button {
     display:block;

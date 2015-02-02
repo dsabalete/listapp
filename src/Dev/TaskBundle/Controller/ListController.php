@@ -66,7 +66,7 @@ class ListController extends Controller
     /**
      * Edita el nombre de una tarea de una lista
      *
-     * @Route("/{id}/inline-edit", name="task_inline_edit")
+     * @Route("/{list_id}/item-update", name="task_inline_edit")
      * @Method("POST")
      * 
      */
@@ -76,14 +76,13 @@ class ListController extends Controller
         $name = $request->request->get('value');
         
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('DevTaskBundle:TaskList')->find($id);
+        $entity = $em->getRepository('DevTaskBundle:Task')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Task entity.');
         }
         
-        $tasks = $entity->getTasks();
-
+        $entity->setTask($name);
                
         $em->persist($entity);
         $em->flush();
@@ -216,6 +215,28 @@ class ListController extends Controller
     }    
     
     /**
+     * @Route("/item/{id}", name="item_show")
+     * @Method("GET")
+     * @Template()
+     */
+    public function itemAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('DevTaskBundle:Task')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find TaskList entity.');
+        }
+
+        $deleteForm = $this->createDeleteForm($id);
+
+        return array(
+            'entity'      => $entity,
+            'delete_form' => $deleteForm->createView(),
+        );
+    }    
+    
+    /**
      * @Route("/{id}/items", name="list_items")
      * @Method("GET")
      * @Template()
@@ -304,7 +325,7 @@ class ListController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('list_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('item_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Eliminar'))
             ->getForm()
@@ -317,24 +338,48 @@ class ListController extends Controller
      * @Route("/{id}", name="list_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, $id)
+    // public function deleteAction(Request $request, $id)
+    // {
+    //     $form = $this->createDeleteForm($id);
+    //     $form->handleRequest($request);
+
+    //     if ($form->isValid()) {
+    //         $em = $this->getDoctrine()->getManager();
+    //         $entity = $em->getRepository('DevTaskBundle:TaskList')->find($id);
+
+    //         if (!$entity) {
+    //             throw $this->createNotFoundException('Unable to find Task entity.');
+    //         }
+
+    //         $em->remove($entity);
+    //         $em->flush();
+    //         $this->get('session')->getFlashBag()->add('notice', 'Lista eliminada.');
+    //     }
+
+    //     return $this->redirect($this->generateUrl('list'));
+    // }    
+    
+    
+    /**
+     * Deletes a Task entity.
+     *
+     * @Route("/{id}/delete", name="item_delete")
+     * @Method("GET")
+     */
+    public function deleteAction($id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('DevTaskBundle:Task')->find($id);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('DevTaskBundle:TaskList')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Task entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
-            $this->get('session')->getFlashBag()->add('notice', 'Lista eliminada.');
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find TaskList entity.');
         }
 
-        return $this->redirect($this->generateUrl('list'));
-    }    
+        $list_id = $entity->getTasklist()->getId();
+        
+        $em->remove($entity);
+        $em->flush();
+    
+        return $this->redirect($this->generateUrl('list_items', array('id' => $list_id)));
+    }        
 }

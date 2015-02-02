@@ -82,14 +82,17 @@ $(function(){
  		}
  	}); 
 	
- 	$('.taskedit').editable("inline-edit", {
+ 	$('.taskedit').editable("item-update", {
  		indicator: '<img src="../../img/loading.gif">',
  		tooltip: "Haga clic para editar...",
  		submitdata: { 
  			_method: "post", 
  			id: $(this).attr('id'), 
  			value: $(this).html()
- 		}
+ 		},
+ 		callback: function() {
+ 			location.href = '';
+ 		} 		
  	}); 
 
 
