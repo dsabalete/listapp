@@ -24,12 +24,6 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('DevTaskBundle:TaskList')->findAll();
-        
-        return array(
-            'entities' => $entities,
-            //'form'   => $form->createView(),
-        );
+        return $this->redirect($this->generateUrl('list'));
     }
 }
