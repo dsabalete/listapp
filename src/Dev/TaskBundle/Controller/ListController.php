@@ -333,34 +333,6 @@ class ListController extends Controller
     }
     
     /**
-     * Deletes a TaskList entity.
-     *
-     * @Route("/{id}", name="list_delete")
-     * @Method("DELETE")
-     */
-    // public function deleteAction(Request $request, $id)
-    // {
-    //     $form = $this->createDeleteForm($id);
-    //     $form->handleRequest($request);
-
-    //     if ($form->isValid()) {
-    //         $em = $this->getDoctrine()->getManager();
-    //         $entity = $em->getRepository('DevTaskBundle:TaskList')->find($id);
-
-    //         if (!$entity) {
-    //             throw $this->createNotFoundException('Unable to find Task entity.');
-    //         }
-
-    //         $em->remove($entity);
-    //         $em->flush();
-    //         $this->get('session')->getFlashBag()->add('notice', 'Lista eliminada.');
-    //     }
-
-    //     return $this->redirect($this->generateUrl('list'));
-    // }    
-    
-    
-    /**
      * Deletes a Task entity.
      *
      * @Route("/{id}/delete", name="item_delete")

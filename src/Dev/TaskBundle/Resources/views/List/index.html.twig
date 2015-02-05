@@ -1,62 +1,24 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
+    
+    <div class="jumbotron">
+        <h1>Lista de listas</h1>
+    </div>
 
-    <h2>Lista de listas</h2>
-
-{#
-    <ul>
-        <li class="task-create">
-            <form action="{{ path('task_create') }}" method="post" {{ form_enctype(form) }}>
-                {{ form_errors(form) }}
-                {{ form_row(form.task) }}
-                <div class="hidden">{{ form_widget(form.complete) }}</div>
-                {{ form_rest(form) }}
-
-            </form>
-        </li>
-    </ul>
-#} 
-
-    <table class="records_list">
+    <p class="listcreate">Nueva lista</p>
+    
+    <table class="table-striped">
         <tbody>
-            <tr>
-                <td>
-                    <div class="listcreate">+ Nueva lista</div>
-                </td>
-                <td>
-                    
-                </td>
-                {#
-                <td colspan="2">
-                     <ul>
-                        <li>
-                            <a href="{{ path('list_create') }}" class="">+</a>
-                        </li>
-                    </ul>
-                </td>
-                #}
-            </tr>        
         {% for entity in entities %}
             <tr>
-                
                 <td>
                     <div class="listedit" id="{{ entity.id }}">{{ entity.name }}</div>
                 </td>
-                
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('list_show', { 'id': entity.id }) }}">detalle</a>
-                        </li>
-                        
-                        <li>
-                            <a href="{{ path('list_items', { 'id': entity.id }) }}">items</a>
-                        </li>
-                           
-                    </ul>
+                    <a href="{{ path('list_show', { 'id': entity.id }) }}" class="btn btn-link">detalle</a>
+                    <a href="{{ path('list_items', { 'id': entity.id }) }}" class="btn btn-link">items</a>
                 </td>
-                
             </tr>
         {% endfor %}
             

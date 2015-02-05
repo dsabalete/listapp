@@ -2,11 +2,10 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html class="" lang="es"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>{% block title %} LISTAPP v0.6 {% endblock %}</title>
+        <!--meta http-equiv="X-UA-Compatible" content="IE=edge"-->
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -14,44 +13,50 @@
 
         {% block stylesheets %}
             {% stylesheets 
-                'css/normalize.css'
-                'css/main.css'
-                'css/bootstrap.css'
-                'css/bootstrap-theme.css'
+                'css/bootstrap.min.css'
+                'css/bootstrap-theme.min.css'
+                'css/main.css'          
                 filter='cssrewrite'
             %}
         <link rel="stylesheet" href="{{ asset_url }}">
             {% endstylesheets %}
         {% endblock %}
-        <script src="{{ asset('js/vendor/modernizr-2.6.2.min.js') }}"></script>
+        {#<script src="{{ asset('js/vendor/modernizr-2.6.2.min.js') }}"></script>#}
+        
+        <title>{% block title %} LISTAPP v0.7 {% endblock %}</title>
+        
     </head>
     <body>
+        
+    <div class="container">
+                
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <div class="wrap">
+        
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6 col-xs-12">
         {% set flashbag_notices = app.session.flashbag.get('notice') %}
         {% if flashbag_notices is not empty %}
-        <ul class="msg">
             {% for notice in flashbag_notices %}
-            <li>{{ notice }} </li>
+            <p class="bg-success">{{ notice }} </p>
             {% endfor %}
-        </ul>
         {% endif %}
+        
         {% block body %}{% endblock %}
+            </div>
+            <div class="col-sm-3"></div>
         </div>
-
         <!-- Add your site or application content here -->
 
         {% block javascripts %}
         <script src="{{ asset('//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js') }}"></script>
         <script>window.jQuery || document.write('<script src="{{ asset('js/vendor/jquery-1.10.2.min.js') }}"><\/script>')</script>
             {% javascripts 
-                'js/plugins.js'
-                'js/main.js'
                 'js/vendor/jquery.jeditable.mini.js'
-                'js/bootstrap.js'
-                'js/npm.js'
+                'js/bootstrap.min.js'
+                'js/main.js'                
             %}
         <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
@@ -67,5 +72,7 @@
             ga('create','UA-XXXXX-X');ga('send','pageview');
         </script>
         -->
+    </div><!-- /end container -->
+    
     </body>
 </html>
