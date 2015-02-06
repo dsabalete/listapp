@@ -1,4 +1,4 @@
-.records_list tr {
+/*.records_list tr {
     border-bottom: 1px solid #ccc;
 }
 
@@ -8,4 +8,13 @@
 
 .records_list td {
     padding: 0.813em;
+}*/
+
+table.table-striped tr td:first-child {
+    /*width: 100%;
+    padding: 0 1rem;*/
+}
+
+table.table-striped tr td:last-child {
+    /*width: 14rem;*/
 }

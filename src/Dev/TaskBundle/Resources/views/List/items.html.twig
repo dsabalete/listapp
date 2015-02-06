@@ -2,52 +2,40 @@
 
 {% block body -%}
    
-   <h1>Lista: '{{ entity.name }}'</h1>
+    <div class="jumbotron">
+        <h1>Items</h1>
+        <p>{{ entity.name }}</p>
+    </div>
 
-    <table class="records_list">
+    <p class="itemcreate btn-link">Nuevo item &gt;</p>
+
+    <table class="table-striped">
         <tbody>
-            <tr>
-                <td colspan="3">
-                    <div class="itemcreate">+ Nuevo item</div>
-                </td>
-
-        {% for item in items %}
-            <tr>
-
-                <td id="task-complete-{{ item.id }}">
-                    <a class="ajax-task-complete" href="{{ path('task_edit_complete', { 'id': item.id }) }}">
-                        {% if item.complete %} X {% else %} O {% endif %}</a>
-                </td>                
-                
-                <td>
-                    <div class="taskedit" id="{{ item.id }}">{{ item.task }}</div>
-                </td>
-                
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('item_show', { 'id': item.id }) }}">detalle</a>
-                        </li>
-                        
-                        <li>
-                            <a href="{{ path('item_delete', { 'id': item.id }) }}">borra</a>
-                        </li>
-                           
-                    </ul>
-                </td>
-                
-            </tr>
-        {% endfor %}
             
+    {% for item in items %}
+        <tr>
+            <td style="width:1rem; padding: 1rem;">
+                <div id="task-complete-{{ item.id }}">
+                     <a class="ajax-task-complete" href="{{ path('task_edit_complete', { 'id': item.id }) }}">
+                        {% if item.complete %} X {% else %} O {% endif %}</a>
+                </div>
+            </td>
+            <td style="width:42rem; padding: 1rem;">    
+                <div class="taskedit" id="{{ item.id }}">
+                    {{ item.task }}
+                </div>
+            </td>
+            <td>
+                <a href="{{ path('item_detail', { 'id': item.id }) }}" class="btn btn-link">detalle</a>
+            </td>
+        </tr>
+    {% endfor %}
+    
         </tbody>
-    </table>
+    </table>    
 
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('list') }}">
-            &lt;- Volver a la lista
-        </a>
-    </li>
+<ul class="pager">
+    <li><a href="{{ path('list') }}">Volver a la lista</a></li>
 </ul>
 {% endblock %}

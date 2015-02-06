@@ -6,17 +6,17 @@
         <h1>Lista de listas</h1>
     </div>
 
-    <p class="listcreate">Nueva lista</p>
+    <p class="listcreate btn-link">Nueva lista &gt;</p>
     
     <table class="table-striped">
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td>
+                <td style="width:42rem;">
                     <div class="listedit" id="{{ entity.id }}">{{ entity.name }}</div>
                 </td>
                 <td>
-                    <a href="{{ path('list_show', { 'id': entity.id }) }}" class="btn btn-link">detalle</a>
+                    <a href="{{ path('list_detail', { 'id': entity.id }) }}" class="btn btn-link">detalle</a>
                     <a href="{{ path('list_items', { 'id': entity.id }) }}" class="btn btn-link">items</a>
                 </td>
             </tr>

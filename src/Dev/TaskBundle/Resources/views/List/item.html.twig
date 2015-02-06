@@ -1,9 +1,12 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Item: {{ entity.task }}</h1>
 
-    <table class="record_properties">
+    <div class="jumbotron">
+        <h1>Item: {{ entity.task }}</h1>
+    </div>
+    
+    <table class="table-striped">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -24,19 +27,13 @@
         </tbody>
     </table>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('list_items', { 'id': entity.tasklist.id }) }}">
-            Volver a la lista
-        </a>
-    </li>
-    {#
-    <li>
+    <ul class="pager">
+    <li><a href="{{ path('list_items', { 'id': entity.tasklist.id }) }}">Volver a la lista</a></li>
+    {#<li>
         <a href="{{ path('task_edit', { 'id': entity.id }) }}">
             Editar
         </a>
     </li>
-    <li>{{ form(delete_form) }}</li>
-    #}
-</ul>
+    <li>{{ form(delete_form) }}</li>#}
+    </ul>
 {% endblock %}

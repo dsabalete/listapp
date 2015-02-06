@@ -2,8 +2,11 @@
 {% form_theme edit_form 'DevTaskBundle:Form:fields.html.twig' %}
 
 {% block body -%}
-    <h1>Editar Lista</h1>
 
+    <div class="jumbotron">
+        <h1>Editar Lista</h1>
+    </div>
+    
 	<form action="{{ path('list_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
 		<input type="hidden" name="_method" value="PUT" />
 	    {{ form_errors(edit_form) }}
@@ -17,11 +20,7 @@
 		</p>
 	</form>
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('list') }}">
-            Volver a la lista
-        </a>
-    </li>
+<ul class="pager">
+    <li><a href="{{ path('list') }}">Volver a la lista</a></li>
 </ul>
 {% endblock %}

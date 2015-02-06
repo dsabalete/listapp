@@ -1,7 +1,10 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Nueva Tarea</h1>
+
+    <div class="jumbotron">
+        <h1>Nueva Tarea</h1>
+    </div>
 
 	<form action="{{ path('task_create') }}" method="post" {{ form_enctype(form) }}>
 	    {{ form_errors(form) }}
@@ -11,11 +14,7 @@
 
 	</form>
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('task') }}">
-            Volver a la lista
-        </a>
-    </li>
+<ul class="pager">
+    <li><a href="{{ path('task') }}">Volver a la lista</a></li>
 </ul>
 {% endblock %}

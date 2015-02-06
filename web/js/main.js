@@ -56,6 +56,15 @@ $(function(){
 		}
 	});
 	
+	$('.link-del').click(function(e){
+		e.preventDefault();
+		var resp = confirm("¿Estas seguro que quieres eliminar?");
+		if (resp) {
+			location.href = $(this).attr('href');
+		}
+	});
+
+
 
 	// http://www.appelsiini.net/projects/jeditable
  	$('.listcreate').editable("inline-create", {
@@ -113,3 +122,13 @@ $(function(){
 	
  	
 });
+
+function doFunctionForYes() {
+    alert("Si");
+    $('#msg').show();
+}
+
+function doFunctionForNo() {
+    alert("No");
+    $('#msg').show();
+}
