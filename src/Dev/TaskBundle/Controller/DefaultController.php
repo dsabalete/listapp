@@ -18,6 +18,7 @@ use Dev\TaskBundle\Entity\TaskList;
  */
 class DefaultController extends Controller
 {
+
     /**
      * @Route("/")
      * @Template()
@@ -26,4 +27,6 @@ class DefaultController extends Controller
     {
         return $this->redirect($this->generateUrl('list'));
     }
+
+
 }

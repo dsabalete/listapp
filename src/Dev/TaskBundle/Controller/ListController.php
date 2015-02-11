@@ -21,6 +21,34 @@ use Dev\TaskBundle\Form\TaskListType;
  */
 class ListController extends Controller
 {
+
+    /**
+     * @Route("/search", name="search")
+     * @Method("GET")
+     * @Template()
+     */
+    public function searchAction()
+    {
+        return array();
+    }
+
+
+    /**
+     * @Route("/search", name="search_term")
+     * @Method("POST")
+     */
+    public function searchTermAction(Request $request)
+    {
+        $palabra = $request->request->get('palabra');
+
+        // TODO pendiente de implementar
+        // 
+        // 
+        // 
+        return new Response($palabra);
+    }
+
+
     /**
      * @Route("/", name="list")
      * @Method("GET")
