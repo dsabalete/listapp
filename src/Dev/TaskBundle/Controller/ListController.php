@@ -4,6 +4,7 @@ namespace Dev\TaskBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -21,6 +22,27 @@ use Dev\TaskBundle\Form\TaskListType;
  */
 class ListController extends Controller
 {
+
+    /**
+     * @Route("/json", name="json_list")
+     * @Method("GET")
+     */
+    public function jsonListAction() 
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('DevTaskBundle:TaskList')->findAll();
+        
+        foreach($entities as $entity) {
+        //    array_push($arr, json_encode($entity));
+            print_r($entity);
+        }
+        
+        print_r($entities);
+        
+        $response = new JsonResponse();
+        $response->setData(array('entities' => $entities));
+        return $response;
+    }
 
     /**
      * @Route("/search", name="search")
