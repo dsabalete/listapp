@@ -4,7 +4,7 @@ $(function(){
 	var listas = new Bloodhound({
 		datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
 		queryTokenizer: Bloodhound.tokenizers.whitespace,
-		prefetch: '../list.json',
+		//prefetch: '../list.json',
 		remote: '../list.json',
 	});
 
