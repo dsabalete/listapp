@@ -57,16 +57,21 @@ class ListController extends Controller
     /**
      * @Route("/search", name="search_term")
      * @Method("POST")
+     * @Template("DevTaskBundle:List:items.html.twig")
      */
     public function searchTermAction(Request $request)
     {
         $palabra = $request->request->get('palabra');
 
-        // TODO pendiente de implementar
-        // 
-        // 
-        // 
-        return new Response($palabra);
+        $repository = $this->getDoctrine()->getRepository('DevTaskBundle:TaskList');
+        $entity = $repository->findOneByName($palabra);
+
+        $items = $entity->getTasks();
+
+        return array(
+            'entity' => $entity,
+            'items' => $items,
+        );
     }
 
 
