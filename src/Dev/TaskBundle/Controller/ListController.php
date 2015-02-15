@@ -13,7 +13,10 @@ use Dev\TaskBundle\Entity\TaskList;
 use Dev\TaskBundle\Entity\Task;
 use Dev\TaskBundle\Form\TaskListType;
 // use Dev\TaskBundle\Form\TaskCompleteType;
-// use Symfony\Component\Serializer\Encoder\JsonEncoder;
+//use JMS\Serializer\SerializerBuilder;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 
 /**
  * List controller.
@@ -24,23 +27,19 @@ class ListController extends Controller
 {
 
     /**
-     * @Route("/json", name="json_list")
+     * @Route(".json", name="json_list")
      * @Method("GET")
      */
     public function jsonListAction() 
     {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('DevTaskBundle:TaskList')->findAll();
-        
-        foreach($entities as $entity) {
-        //    array_push($arr, json_encode($entity));
-            print_r($entity);
+
+        $pila = array();
+        foreach ($entities as $entity) {
+            array_push($pila, array('name' => $entity->getName()));
         }
-        
-        print_r($entities);
-        
-        $response = new JsonResponse();
-        $response->setData(array('entities' => $entities));
+        $response = new JsonResponse($pila);
         return $response;
     }
 
