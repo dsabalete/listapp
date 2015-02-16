@@ -63,13 +63,24 @@ class ListController extends Controller
     {
         $palabra = $request->request->get('palabra');
 
-        $repository = $this->getDoctrine()->getRepository('DevTaskBundle:TaskList');
-        $entity = $repository->findOneByName($palabra);
+        $em = $this->getDoctrine()->getManager();
+        $result = $em->getRepository('DevTaskBundle:TaskList')->createQueryBuilder('l')
+            ->where('l.name LIKE :palabra')
+            ->setParameter('palabra', $palabra)
+            ->getQuery()
+            ->getResult();
 
-        $items = $entity->getTasks();
+        if (!$result) {
+            throw $this->createNotFoundException('No se ha podido encontrar la entidad TaskList.');
+        }
+
+        $items = 0;
+        if ($result instanceof TaskList) {
+            $items = $result->getTasks();    
+        }
 
         return array(
-            'entity' => $entity,
+            'entity' => $result,
             'items' => $items,
         );
     }

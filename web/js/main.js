@@ -1,5 +1,11 @@
 $(function(){
 
+	$('#autolist').autocomplete({
+		source: '../list.json',
+		
+	});
+
+
 	// Typeahead code
 	var listas = new Bloodhound({
 		datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
