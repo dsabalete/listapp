@@ -4,6 +4,11 @@
 .typeahead.form-control.tt-hint {
 	width: 100%;
 }
+
+#autolist {
+	width: 18em;
+}
+
 #matchings {
 	list-style-type: none;
 	padding: 0px;

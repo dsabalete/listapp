@@ -30,17 +30,24 @@ class ListController extends Controller
      * @Route(".json", name="json_list")
      * @Method("GET")
      */
-    public function jsonListAction() 
+    public function jsonListAction(Request $request) 
     {
-        $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('DevTaskBundle:TaskList')->findAll();
-
+        $data = $request->query->get('data');
+        
+        $repo = $this->getDoctrine()->getRepository('DevTaskBundle:TaskList');
+        $query = $repo->createQueryBuilder('t')
+            ->where('t.name LIKE :name')
+            ->setParameter('name', '%'.$data.'%')
+            ->getQuery();
+            
+        $entities = $query->getResult();            
+        
         $pila = array();
         foreach ($entities as $entity) {
             array_push($pila, array('name' => $entity->getName()));
         }
-        $response = new JsonResponse($pila);
-        return $response;
+        
+        return new JsonResponse($pila);
     }
 
     /**
