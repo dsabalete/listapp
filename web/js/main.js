@@ -1,28 +1,54 @@
 $(function(){
 
-	$('#autolist').autocomplete({
-		source: '../list.json',
-		
-	});
-
-
+	// $('#autolist').autocomplete({
+	// 	source: '../list.json',
+	// });
 	// Typeahead code
-	var listas = new Bloodhound({
-		datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-		queryTokenizer: Bloodhound.tokenizers.whitespace,
-		prefetch: '../list.json',
-		remote: '../list.json',
+	// var listas = new Bloodhound({
+	// 	datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+	// 	queryTokenizer: Bloodhound.tokenizers.whitespace,
+	// 	prefetch: '../list.json',
+	// 	remote: '../list.json',
+	// });
+	//listas.initialize();
+	// $('input.typeahead').typeahead(null, {
+	// 	name: 'listas',
+	// 	displayKey: 'name',
+	// 	source: listas.ttAdapter()
+	// }); 
+
+	$('#autolist').on({
+		keyup: function(e) {
+			e.preventDefault();
+			$.ajax({
+				url: "../list.json",
+				data: $(this).val(),
+				method: 'get',
+				dataType: 'json',
+				cache: false,
+				success: function(obj) {
+					console.log('success');
+					var content = "";
+					for (var i = 0; i < obj.length; i++) {
+						//content += "<li><a href='" + obj[i].name + "'>" + obj[i].name + "</a></li>";
+						content += "<li>" + obj[i].name + "</li>";
+					}
+					$('#matchings').html(content);
+					$("#matchings li").click(function(e) {
+						e.preventDefault();
+						$('#autolist').val($(this).html());
+					});
+				},
+				complete: function(obj) {
+					console.log('complete!');
+				},
+				error: function(err) {
+					console.log(err);
+				}
+			});
+		}
 	});
-
-	listas.initialize();
-
-	$('input.typeahead').typeahead(null, {
-		name: 'listas',
-		displayKey: 'name',
-		source: listas.ttAdapter()
-	}); 
-
-
+	
 	$('.ajax-task-complete').on({
 		click: function(e) {
 			e.preventDefault();

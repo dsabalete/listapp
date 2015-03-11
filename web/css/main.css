@@ -4,3 +4,19 @@
 .typeahead.form-control.tt-hint {
 	width: 100%;
 }
+#matchings {
+	list-style-type: none;
+	padding: 0px;
+}
+
+#matchings li { 
+	background-color: white;
+	border: solid 1px #ddd; 
+	width: auto; 
+	margin: 0px; 
+	padding: 0px;
+}
+#matchings li:hover {
+	background-color: #ccc;
+	cursor: pointer;
+}
